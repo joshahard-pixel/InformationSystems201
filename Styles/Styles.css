@@ -1,0 +1,375 @@
+/* styles.css - Custom stylesheet for Spartan Race Scratch Page */
+
+/* 1. Overall page styles */
+body {
+    font-family: 'Arial', sans-serif;          /* Font family */
+    color: #333333;                            /* Main text color (dark for readability) */
+    background-color: #f8f1e3;                 /* Custom warm earthy background color - Spartan mud/trail feel */
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+
+/* 2. Navigation styling */
+nav {
+    background-color: #2c2c2c;                 /* Dark Spartan-style nav */
+    padding: 15px 0;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.logo {
+    color: #ff3d00;                            /* Spartan red */
+    font-size: 28px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.nav-links a {
+    color: #ffffff;
+    margin-left: 20px;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.nav-links a:hover {
+    color: #ff3d00;
+}
+
+/* 3. Hero section - big header area */
+.hero {
+    background-color: #1a1a1a;                 /* Dark dramatic background */
+    color: #ffffff;
+    text-align: center;
+    padding: 100px 20px;
+}
+
+.hero h1 {
+    font-size: 48px;
+    margin-bottom: 10px;
+}
+
+.hero p {
+    font-size: 22px;
+    max-width: 700px;
+    margin: 0 auto 30px;
+}
+
+/* 4. Section styling (used on multiple sections) */
+section {
+    max-width: 1200px;
+    margin: 60px auto;
+    padding: 0 20px;
+}
+
+/* 5. Headings */
+h2 {
+    color: #ff3d00;                            /* Spartan red accent color */
+    font-size: 36px;
+    border-bottom: 3px solid #ff3d00;
+    padding-bottom: 10px;
+}
+
+/* 6. Table styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+th, td {
+    border: 1px solid #ccc;
+    padding: 12px;
+    text-align: left;
+}
+
+th {
+    background-color: #2c2c2c;
+    color: #ffffff;
+}
+
+/* 7. The three required div blocks for positioning/styling */
+
+/* Div 1: Content wrapper / centered block */
+.content-block {
+    background-color: #ffffff;
+    border: 4px solid #ff3d00;
+    border-radius: 12px;
+    padding: 30px;
+    margin: 40px 0;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Div 2: Highlight box (for important info) */
+.highlight-box {
+    background-color: #fff4e6;
+    border-left: 8px solid #ff3d00;
+    padding: 25px;
+    margin: 30px 0;
+    font-style: italic;
+}
+
+/* Div 3: Image container with positioning */
+.image-container {
+    text-align: center;
+    margin: 40px 0;
+    padding: 20px;
+    background-color: #2c2c2c;
+    color: #ffffff;
+    border-radius: 12px;
+}
+
+/* Button style */
+.btn {
+    background-color: #ff3d00;
+    color: #ffffff;
+    padding: 15px 30px;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: bold;
+    display: inline-block;
+}
+
+.btn:hover {
+    background-color: #e63300;
+}
+
+
+
+
+/* Hero Section - Photo left, text right */
+.hero {
+    background-color: #1a1a1a;
+    color: white;
+    padding: 80px 20px 100px;
+}
+
+.hero-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 60px;
+    align-items: flex-start;
+}
+
+.hero-image-container {
+    flex: 1;
+    min-width: 320px;
+    text-align: left;           /* Changed from center */
+}
+
+.hero-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 12px;
+    border: 6px solid #ff3d00;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+    display: block;             /* Makes sure image is left-aligned */
+}
+
+.image-caption {
+    margin-top: 15px;
+    font-size: 19px;
+    font-weight: bold;
+    color: white;
+    text-align: left;           /* Forces caption to left, under the photo */
+}
+
+.hero-text {
+    flex: 2;
+    min-width: 300px;
+}
+
+.hero-text h1 {
+    font-size: 52px;
+    margin: 0 0 20px 0;
+    line-height: 1.1;
+}
+
+.hero-text p {
+    font-size: 22px;
+    margin-bottom: 35px;
+    color: #ddd;
+}
+
+.btn {
+    background-color: #ff3d00;
+    color: white;
+    padding: 16px 32px;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 18px;
+    display: inline-block;
+}
+
+.btn:hover {
+    background-color: #e63300;
+}
+
+/* Stack nicely on smaller screens */
+@media (max-width: 900px) {
+    .hero-content {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .hero-image-container {
+        text-align: center;
+    }
+    
+    .image-caption {
+        text-align: center;
+    }
+}
+
+/* Trifecta Section - Photo + Text Side by Side */
+.trifecta-content {
+    max-width: 1200px;
+    margin: 40px auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 50px;
+    align-items: flex-start;
+}
+
+.trifecta-image-container {
+    flex: 1;
+    min-width: 320px;
+    text-align: left;
+}
+
+.trifecta-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 12px;
+    border: 6px solid #ff3d00;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    display: block;
+}
+
+.image-caption {
+    margin-top: 12px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #ff3d00;
+    text-align: left;
+}
+
+.trifecta-text {
+    flex: 2;
+    min-width: 300px;
+    font-size: 19px;
+    line-height: 1.7;
+}
+
+.trifecta-text p {
+    margin-bottom: 20px;
+}
+
+/* Stack on mobile */
+@media (max-width: 900px) {
+    .trifecta-content {
+        flex-direction: column;
+    }
+    
+    .trifecta-image-container {
+        text-align: center;
+    }
+    
+    .image-caption {
+        text-align: center;
+    }
+}
+
+/* YouTube Video Section */
+#video-section {
+    max-width: 1200px;
+    margin: 60px auto;
+    padding: 0 20px;
+}
+
+#video-section h2 {
+    color: #ff3d00;
+    font-size: 36px;
+    margin-bottom: 10px;
+}
+
+#video-section p {
+    font-size: 19px;
+    color: #444;
+    margin-bottom: 25px;
+}
+
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%;   /* 16:9 aspect ratio */
+    height: 0;
+    overflow: hidden;
+    background-color: #000;
+    border: 6px solid #ff3d00;
+    border-radius: 12px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.video-caption {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #ff3d00;
+}
+
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%;   /* 16:9 ratio */
+    height: 0;
+    overflow: hidden;
+    background-color: #000;
+    border: 6px solid #ff3d00;
+    border-radius: 12px;
+    margin: 25px 0;
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%;   /* Keeps proper video ratio */
+    height: 0;
+    overflow: hidden;
+    background-color: #000;
+    border: 6px solid #ff3d00;
+    border-radius: 12px;
+    margin: 25px 0;
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}

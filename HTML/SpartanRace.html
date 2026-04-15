@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spartan Race Comparator • Sprint vs Super vs Beast vs Ultra</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600&display=swap');
+        
+        :root {
+            --spartan-red: #ff3d00;
+        }
+        
+        * {
+            transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            transition-duration: 150ms;
+        }
+        
+        .tailwind-ready * {
+            font-family: 'Inter', system_ui, sans-serif;
+        }
+        
+        .title-font {
+            font-family: 'Anton', sans-serif;
+        }
+        
+        .hero-bg {
+            background: linear-gradient(90deg, #111111 0%, #1a1a1a 100%);
+        }
+        
+        .card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 25px 50px -12px rgb(255 61 0 / 0.25);
+        }
+        
+        .table-row {
+            transition: all 0.2s ease;
+        }
+        
+        .table-row:hover {
+            background-color: #1f1f1f;
+        }
+        
+        .spartan-helmet {
+            animation: helmet-bob 2s infinite ease-in-out;
+        }
+    </style>
+</head>
+<body class="tailwind-ready bg-zinc-950 text-white">
+    <!-- NAVBAR -->
+    <nav class="bg-black border-b border-red-600 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
+            <div class="flex items-center gap-x-3">
+                <div class="w-10 h-10 bg-blk-600 rounded-full flex items-center justify-center text-2xl spartan-helmet"><img src="Spartan Helmet 2.png" alt=""></div>
+                <h1 class="title-font text-3xl tracking-tighter">SPARTAN</h1>
+                <span class="text-red-500 text-sm font-bold tracking-[2px] mt-1">RACE COMPARATOR</span>
+            </div>
+            
+            <div class="hidden md:flex items-center gap-x-8 text-sm uppercase font-medium">
+                <a href="#compare" onclick="document.getElementById('compare-section').scrollIntoView({ behavior: 'smooth' })" class="hover:text-red-500">COMPARE</a>
+                <a href="#details" onclick="document.getElementById('details-section').scrollIntoView({ behavior: 'smooth' })" class="hover:text-red-500">RACE BREAKDOWN</a>
+                <a href="#trifecta" onclick="document.getElementById('trifecta-section').scrollIntoView({ behavior: 'smooth' })" class="hover:text-red-500">TRIFECTA</a>
+                <a href="#quiz" onclick="document.getElementById('quiz-section').scrollIntoView({ behavior: 'smooth' })" class="hover:text-red-500">WHICH RACE FOR YOU?</a>
+            </div>
+            
+            <div class="flex items-center gap-x-4">
+                <a href="https://www.spartan.com" target="_blank" 
+                   class="px-6 py-2 bg-red-600 hover:bg-red-700 text-white font-bold text-sm rounded-lg flex items-center gap-x-2">
+                    <span>FIND A RACE</span>
+                    <span class="text-xl">→</span>
+                </a>
+                <button onclick="toggleMobileMenu()" class="md:hidden w-10 h-10 flex items-center justify-center text-3xl">☰</button>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="hidden md:hidden bg-zinc-900 border-t border-zinc-800 px-6 py-4">
+            <a href="#compare" onclick="document.getElementById('compare-section').scrollIntoView({ behavior: 'smooth' }); toggleMobileMenu()" class="block py-3 text-lg">COMPARE ALL RACES</a>
+            <a href="#details" onclick="document.getElementById('details-section').scrollIntoView({ behavior: 'smooth' }); toggleMobileMenu()" class="block py-3 text-lg">Race Breakdown</a>
+            <a href="#trifecta" onclick="document.getElementById('trifecta-section').scrollIntoView({ behavior: 'smooth' }); toggleMobileMenu()" class="block py-3 text-lg">The Trifecta Challenge</a>
+            <a href="#quiz" onclick="document.getElementById('quiz-section').scrollIntoView({ behavior: 'smooth' }); toggleMobileMenu()" class="block py-3 text-lg">Find Your Race Quiz</a>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <header class="hero-bg py-20 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+            <div>
+                <div class="inline-flex items-center gap-x-2 bg-red-600/10 text-red-500 text-xs font-bold px-4 py-2 rounded-full mb-6">
+                    <div class="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
+                    OFFICIAL 2026 DATA
+                </div>
+                <h1 class="title-font text-6xl md:text-7xl leading-none tracking-tighter mb-6">
+                    SPRINT.<br>SUPER.<br>BEAST.<br><span class="text-red-500">ULTRA.</span>
+                </h1>
+                <p class="text-2xl text-zinc-400 max-w-md mb-8">
+                    The ultimate side-by-side comparison of Spartan Race distances. 
+                    Which beast will you conquer?
+                </p>
+                
+                <div class="flex items-center gap-x-4">
+                    <button onclick="document.getElementById('compare-section').scrollIntoView({ behavior: 'smooth' })" 
+                            class="px-8 py-4 bg-red-600 hover:bg-red-700 text-xl font-bold rounded-2xl flex items-center gap-x-3">
+                        SEE THE FULL COMPARISON
+                        <span class="text-3xl">📊</span>
+                    </button>
+                    <a href="https://www.spartan.com" target="_blank"
+                       class="px-8 py-4 border border-white/30 hover:border-white/70 text-xl font-medium rounded-2xl flex items-center">
+                        OFFICIAL SITE
+                    </a>
+                </div>
+                
+                <div class="mt-12 flex items-center gap-x-8 text-sm">
+                    <div class="flex -space-x-4">
+                        <div class="w-8 h-8 bg-red-600 rounded-2xl flex items-center justify-center text-xs ring-2 ring-zinc-950">5K</div>
+                        <div class="w-8 h-8 bg-orange-500 rounded-2xl flex items-center justify-center text-xs ring-2 ring-zinc-950">10K</div>
+                        <div class="w-8 h-8 bg-amber-500 rounded-2xl flex items-center justify-center text-xs ring-2 ring-zinc-950">21K</div>
+                        <div class="w-8 h-8 bg-yellow-500 rounded-2xl flex items-center justify-center text-xs ring-2 ring-zinc-950">50K</div>
+                    </div>
+                    <p class="text-zinc-400">4 distances • 135 total obstacles • 1 Spartan spirit</p>
+                </div>
+            </div>
+            
+            <!-- Visual -->
+            <div class="hidden md:flex justify-center relative">
+                <div class="text-[280px] leading-none opacity-10"><img src="https://images.ctfassets.net/1bk7n9wtl2gh/6yIlqGG8VfecSeF5ftjdZW/4ef857dac0dfb4e61b29752bb621ddb6/image.jpg" alt=""></div>
+                <div class="absolute inset-0 flex items-center justify-center">
+                    <div class="text-center">
+                        <div class="inline-block bg-black/70 backdrop-blur-md px-8 py-3 rounded-3xl border border-red-600 text-red-400 text-sm font-bold tracking-widest mb-4">
+                            CURRENT AS OF 2026
+                        </div>
+                        <p class="text-4xl font-bold text-white">CHOOSE YOUR PATH</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-red-600/30 to-transparent"></div>
+    </header>
+
+    <!-- COMPARISON TABLE SECTION -->
+    <section id="compare-section" class="max-w-7xl mx-auto px-6 py-20">
+        <div class="flex justify-between items-end mb-12">
+            <div>
+                <span class="text-red-500 text-sm font-bold tracking-widest">HEAD-TO-HEAD</span>
+                <h2 class="title-font text-5xl tracking-tighter">Race Comparison</h2>
+            </div>
+            <p class="max-w-xs text-zinc-400 text-right">All distances are approximate and may vary slightly by venue and terrain.</p>
+        </div>
+        
+        <div class="bg-zinc-900 rounded-3xl overflow-hidden border border-zinc-800">
+            <table class="w-full">
+                <thead>
+                    <tr class="border-b border-zinc-800">
+                        <th class="px-8 py-6 text-left font-medium text-zinc-400">RACE TYPE</th>
+                        <th class="px-8 py-6 text-center font-medium text-zinc-400">DISTANCE</th>
+                        <th class="px-8 py-6 text-center font-medium text-zinc-400">OBSTACLES</th>
+                        <th class="px-8 py-6 text-center font-medium text-zinc-400">TYPICAL TIME</th>
+                        <th class="px-8 py-6 text-center font-medium text-zinc-400">ELEVATION GAIN</th>
+                        <th class="px-8 py-6 text-center font-medium text-zinc-400">DIFFICULTY</th>
+                        <th class="px-8 py-6 text-center font-medium text-zinc-400">BEST FOR</th>
+                    </tr>
+                </thead>
+                <tbody class="text-lg divide-y divide-zinc-800">
+                    <!-- Sprint -->
+                    <tr class="table-row">
+                        <td class="px-8 py-7 font-bold flex items-center gap-x-3">
+                            <span class="text-4xl"><img src="spartan sprint new pig.png" alt=""></span>
+                            <div>
+                                SPRINT<br>
+                                <span class="text-xs font-medium text-red-500">ENTRY LEVEL</span>
+                            </div>
+                        </td>
+                        <td class="px-8 py-7 text-center font-mono text-3xl">5K<br><span class="text-sm text-zinc-400">3.1 miles</span></td>
+                        <td class="px-8 py-7 text-center font-bold text-3xl">20</td>
+                        <td class="px-8 py-7 text-center">45–120 min</td>
+                        <td class="px-8 py-7 text-center text-emerald-400">Moderate</td>
+                        <td class="px-8 py-7 text-center">
+                            <span class="inline-block bg-emerald-400/10 text-emerald-400 px-4 py-1 rounded-3xl text-sm font-medium">BEGINNER</span>
+                        </td>
+                        <td class="px-8 py-7 text-center text-zinc-400">First-timers, quick challenge, kids ready</td>
+                    </tr>
+                    
+                    <!-- Super -->
+                    <tr class="table-row">
+                        <td class="px-8 py-7 font-bold flex items-center gap-x-3">
+                            <span class="text-4xl"><img src="spartan super new pig.jpg" alt=""></span>
+                            <div>
+                                SUPER<br>
+                                <span class="text-xs font-medium text-orange-500">NEXT LEVEL</span>
+                            </div>
+                        </td>
+                        <td class="px-8 py-7 text-center font-mono text-3xl">10K<br><span class="text-sm text-zinc-400">6.2 miles</span></td>
+                        <td class="px-8 py-7 text-center font-bold text-3xl">25</td>
+                        <td class="px-8 py-7 text-center">1.5–4 hours</td>
+                        <td class="px-8 py-7 text-center text-amber-400">High</td>
+                        <td class="px-8 py-7 text-center">
+                            <span class="inline-block bg-amber-400/10 text-amber-400 px-4 py-1 rounded-3xl text-sm font-medium">INTERMEDIATE</span>
+                        </td>
+                        <td class="px-8 py-7 text-center text-zinc-400">Experienced runners wanting more distance</td>
+                    </tr>
+                    
+                    <!-- Beast -->
+                    <tr class="table-row">
+                        <td class="px-8 py-7 font-bold flex items-center gap-x-3">
+                            <span class="text-4xl"><img src="spartan beast.jpg" alt=""></span>
+                            <div>
+                                BEAST<br>
+                                <span class="text-xs font-medium text-amber-500">LEGENDARY</span>
+                            </div>
+                        </td>
+                        <td class="px-8 py-7 text-center font-mono text-3xl">21K<br><span class="text-sm text-zinc-400">13.1 miles</span></td>
+                        <td class="px-8 py-7 text-center font-bold text-3xl">30</td>
+                        <td class="px-8 py-7 text-center">3–7 hours</td>
+                        <td class="px-8 py-7 text-center text-orange-400">Very High</td>
+                        <td class="px-8 py-7 text-center">
+                            <span class="inline-block bg-orange-400/10 text-orange-400 px-4 py-1 rounded-3xl text-sm font-medium">ADVANCED</span>
+                        </td>
+                        <td class="px-8 py-7 text-center text-zinc-400">Half-marathon warriors &amp; Trifecta hunters</td>
+                    </tr>
+                    
+                    <!-- Ultra -->
+                    <tr class="table-row bg-gradient-to-r from-yellow-900/20 to-transparent">
+                        <td class="px-8 py-7 font-bold flex items-center gap-x-3">
+                            <span class="text-4xl"><img src="spartan ultra.png" alt=""></span>
+                            <div>
+                                ULTRA<br>
+                                <span class="text-xs font-medium text-yellow-500">ULTIMATE</span>
+                            </div>
+                        </td>
+                        <td class="px-8 py-7 text-center font-mono text-3xl">50K<br><span class="text-sm text-zinc-400">31+ miles</span></td>
+                        <td class="px-8 py-7 text-center font-bold text-3xl">60</td>
+                        <td class="px-8 py-7 text-center">8–18+ hours</td>
+                        <td class="px-8 py-7 text-center text-yellow-400">Extreme</td>
+                        <td class="px-8 py-7 text-center">
+                            <span class="inline-block bg-yellow-400/10 text-yellow-400 px-4 py-1 rounded-3xl text-sm font-medium">ELITE</span>
+                        </td>
+                        <td class="px-8 py-7 text-center text-zinc-400">Ultra-endurance athletes &amp; mental warriors</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="mt-6 text-xs text-zinc-400 flex flex-wrap gap-x-8 gap-y-2 justify-center">
+            <div class="flex items-center gap-x-1"><span class="text-red-500">●</span> All races include 30-burpee penalty for failed obstacles</div>
+            <div>Trail + mud + elevation + carries = pure Spartan suffering</div>
+            <div class="flex items-center gap-x-1">Data from official Spartan.com 2026 season</div>
+        </div>
+    </section>
+
+    <!-- RACE DETAIL CARDS -->
+    <section id="details-section" class="bg-black py-20">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="title-font text-5xl tracking-tighter text-center mb-16">Race Breakdown</h2>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Sprint Card -->
+                <div class="bg-zinc-900 rounded-3xl p-8 card-hover border border-transparent hover:border-red-600/30">
+                    <div class="flex justify-between items-start mb-8">
+                        <div>
+                            <div class="text-5xl mb-2">🏃‍♂️</div>
+                            <h3 class="title-font text-4xl">SPRINT</h3>
+                            <p class="text-red-500 font-bold">5K • 20 OBSTACLES</p>
+                        </div>
+                        <img src="https://www.alamy.com/stock-photo-participants-of-challenging-sprint-obstacle-trail-race-spartan-race-48629068.html" 
+                             alt="Spartan Sprint wall climb" class="w-24 h-24 object-cover rounded-2xl -mt-4 shadow-2xl">
+                    </div>
+                    <p class="text-zinc-400 mb-6">Your first taste of Spartan glory. Fast, fun, and muddy. Perfect introduction to OCR.</p>
+                    <ul class="space-y-4 text-sm">
+                        <li class="flex justify-between"><span class="text-zinc-400">Terrain</span><span class="font-medium">Hilly trails + mud</span></li>
+                        <li class="flex justify-between"><span class="text-zinc-400">Signature obstacles</span><span class="font-medium">Spear throw, monkey bars, barbed wire</span></li>
+                        <li class="flex justify-between"><span class="text-zinc-400">Average finishers</span><span class="font-medium">~1 hour</span></li>
+                    </ul>
+                    <div class="mt-8 pt-8 border-t border-zinc-800 text-xs flex justify-between items-center">
+                        <div class="font-mono">TRIFECTA STARTS HERE</div>
+                        <a href="https://www.spartan.com" target="_blank" class="text-red-500 hover:text-red-400 flex items-center gap-x-1 text-xs font-bold">FIND SPRINT RACES →</a>
+                    </div>
+                </div>
+                
+                <!-- Super Card -->
+                <div class="bg-zinc-900 rounded-3xl p-8 card-hover border border-transparent hover:border-orange-600/30">
+                    <div class="flex justify-between items-start mb-8">
+                        <div>
+                            <div class="text-5xl mb-2">🔥</div>
+                            <h3 class="title-font text-4xl">SUPER</h3>
+                            <p class="text-orange-500 font-bold">10K • 25 OBSTACLES</p>
+                        </div>
+                        <img src="https://www.mudrunguide.com/2015/07/race-review-pennsylvania-spartan-super-sprint-weekend/" 
+                             alt="Spartan Super sandbag carry" class="w-24 h-24 object-cover rounded-2xl -mt-4 shadow-2xl">
+                    </div>
+                    <p class="text-zinc-400 mb-6">Double the distance, double the glory. The perfect bridge between sprint and beast.</p>
+                    <ul class="space-y-4 text-sm">
+                        <li class="flex justify-between"><span class="text-zinc-400">Terrain</span><span class="font-medium">Brutal hills + technical trails</span></li>
+                        <li class="flex justify-between"><span class="text-zinc-400">Signature obstacles</span><span class="font-medium">Atlas carry, rope climb, bucket brigade</span></li>
+                        <li class="flex justify-between"><span class="text-zinc-400">Average finishers</span><span class="font-medium">~2.5 hours</span></li>
+                    </ul>
+                    <div class="mt-8 pt-8 border-t border-zinc-800 text-xs flex justify-between items-center">
+                        <div class="font-mono">SPEED + ENDURANCE</div>
+                        <a href="https://www.spartan.com" target="_blank" class="text-orange-500 hover:text-orange-400 flex items-center gap-x-1 text-xs font-bold">FIND SUPER RACES →</a>
+                    </div>
+                </div>
+                
+                <!-- Beast Card -->
+                <div class="bg-zinc-900 rounded-3xl p-8 card-hover border border-transparent hover:border-amber-600/30">
+                    <div class="flex justify-between items-start mb-8">
+                        <div>
+                            <div class="text-5xl mb-2">🦍</div>
+                            <h3 class="title-font text-4xl">BEAST</h3>
+                            <p class="text-amber-500 font-bold">21K • 30 OBSTACLES</p>
+                        </div>
+                        <img src="https://fivebagfit.com/2012/09/22/spartan-beast-vermont/" 
+                             alt="Spartan Beast muddy group run" class="w-24 h-24 object-cover rounded-2xl -mt-4 shadow-2xl">
+                    </div>
+                    <p class="text-zinc-400 mb-6">The original “soul-crushing” test. Half-marathon distance with obstacles that never end.</p>
+                    <ul class="space-y-4 text-sm">
+                        <li class="flex justify-between"><span class="text-zinc-400">Terrain</span><span class="font-medium">Mountainous + relentless</span></li>
+                        <li class="flex justify-between"><span class="text-zinc-400">Signature obstacles</span><span class="font-medium">Multi-mile carries, walls, fire jumps</span></li>
+                        <li class="flex justify-between"><span class="text-zinc-400">Average finishers</span><span class="font-medium">~4–5 hours</span></li>
+                    </ul>
+                    <div class="mt-8 pt-8 border-t border-zinc-800 text-xs flex justify-between items-center">
+                        <div class="font-mono">TRIFECTA COMPLETE</div>
+                        <a href="https://www.spartan.com" target="_blank" class="text-amber-500 hover:text-amber-400 flex items-center gap-x-1 text-xs font-bold">FIND BEAST RACES →</a>
+                    </div>
+                </div>
+                
+                <!-- Ultra Card -->
+                <div class="bg-zinc-900 rounded-3xl p-8 card-hover border border-transparent hover:border-yellow-600/30 relative overflow-hidden">
+                    <div class="absolute top-6 right-6 text-yellow-500 text-xs font-bold bg-yellow-900/50 px-3 py-1 rounded-3xl">EXTREME</div>
+                    <div class="flex justify-between items-start mb-8">
+                        <div>
+                            <div class="text-5xl mb-2">🏔️</div>
+                            <h3 class="title-font text-4xl">ULTRA</h3>
+                            <p class="text-yellow-500 font-bold">50K • 60 OBSTACLES</p>
+                        </div>
+                        <div class="w-24 h-24 bg-gradient-to-br from-yellow-500 to-amber-600 rounded-3xl flex items-center justify-center text-5xl">🌌</div>
+                    </div>
+                    <p class="text-zinc-400 mb-6">OCR meets ultra-running. 31+ miles of non-stop punishment. Only the strongest survive.</p>
+                    <ul class="space-y-4 text-sm">
+                        <li class="flex justify-between"><span class="text-zinc-400">Terrain</span><span class="font-medium">Multi-loop mountain madness</span></li>
+                        <li class="flex justify-between"><span class="text-zinc-400">Signature obstacles</span><span class="font-medium">Everything ×2 — day &amp; night</span></li>
+                        <li class="flex justify-between"><span class="text-zinc-400">Average finishers</span><span class="font-medium">10–15 hours</span></li>
+                    </ul>
+                    <div class="mt-8 pt-8 border-t border-zinc-800 text-xs flex justify-between items-center">
+                        <div class="font-mono">THE ULTIMATE TEST</div>
+                        <a href="https://www.spartan.com" target="_blank" class="text-yellow-500 hover:text-yellow-400 flex items-center gap-x-1 text-xs font-bold">FIND ULTRA RACES →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TRIFECTA SECTION -->
+    <section id="trifecta-section" class="max-w-7xl mx-auto px-6 py-20 bg-zinc-950 border-t border-b border-red-900/30">
+        <div class="grid md:grid-cols-12 gap-12 items-center">
+            <div class="md:col-span-5">
+                <div class="sticky top-8">
+                    <span class="px-4 py-1 bg-gradient-to-r from-red-600 to-amber-500 text-white text-sm font-bold rounded-3xl">THE ULTIMATE ACHIEVEMENT</span>
+                    <h2 class="title-font text-5xl tracking-tighter mt-4 mb-6">The Spartan Trifecta</h2>
+                    <p class="text-xl text-zinc-400">Complete a Sprint + Super + Beast (in any order, same calendar year) and earn the legendary Trifecta medal.</p>
+                    <div class="mt-12 flex items-center gap-x-8">
+                        <div class="text-center">
+                            <div class="text-6xl">5K</div>
+                            <div class="h-2 w-12 bg-red-600 mx-auto my-3"></div>
+                            <div class="uppercase text-xs tracking-widest">Sprint</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-6xl">10K</div>
+                            <div class="h-2 w-12 bg-orange-500 mx-auto my-3"></div>
+                            <div class="uppercase text-xs tracking-widest">Super</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-6xl">21K</div>
+                            <div class="h-2 w-12 bg-amber-500 mx-auto my-3"></div>
+                            <div class="uppercase text-xs tracking-widest">Beast</div>
+                        </div>
+                        <div class="text-4xl mx-4">→</div>
+                        <div class="text-center border border-red-500 rounded-3xl px-8 py-6 bg-black">
+                            <div class="text-5xl">🏆</div>
+                            <div class="text-red-500 font-bold text-sm mt-2">TRIFECTA</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="md:col-span-7">
+                <div class="bg-zinc-900/50 rounded-3xl p-8 border border-dashed border-red-600/30">
+                    <p class="text-zinc-300 mb-8">Over 100,000 Spartans earn their Trifecta every year. It’s not just a medal — it’s proof you conquered three completely different distances.</p>
+                    <div class="grid grid-cols-3 gap-6 text-center">
+                        <div class="bg-zinc-800 rounded-2xl p-6">
+                            <div class="text-red-500 text-2xl">2026 GOAL</div>
+                            <div class="font-mono text-5xl mt-3">3 RACES</div>
+                            <div class="text-xs text-zinc-400 mt-1">1 YEAR</div>
+                        </div>
+                        <div class="bg-zinc-800 rounded-2xl p-6">
+                            <div class="text-amber-400 text-2xl">YOUR REWARD</div>
+                            <div class="text-7xl mt-1">🏅</div>
+                            <div class="uppercase text-xs mt-4 font-bold">TRIFECTA MEDAL + SHIRT</div>
+                        </div>
+                        <div class="bg-zinc-800 rounded-2xl p-6">
+                            <div class="text-emerald-400 text-2xl">NEXT STEP</div>
+                            <div class="font-bold text-3xl mt-6">ULTRA BEAST?</div>
+                            <div class="text-xs text-zinc-400">The final frontier</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- QUIZ SECTION -->
+    <section id="quiz-section" class="max-w-7xl mx-auto px-6 py-20">
+        <h2 class="title-font text-5xl tracking-tighter text-center mb-4">Which Spartan Race is Right for YOU?</h2>
+        <p class="text-zinc-400 text-center max-w-md mx-auto mb-12">Answer 4 quick questions and we’ll recommend your perfect starting distance.</p>
+        
+        <div id="quiz" class="max-w-2xl mx-auto bg-zinc-900 rounded-3xl p-10">
+            <div id="question-1" class="quiz-step">
+                <div class="text-red-500 text-sm mb-3 font-bold">QUESTION 1 OF 4</div>
+                <p class="text-3xl font-medium mb-8">How much obstacle racing experience do you have?</p>
+                <div onclick="answerQuiz(1, 'beginner')" class="quiz-option cursor-pointer mb-4 p-6 border border-zinc-700 hover:border-red-600 rounded-2xl flex items-center justify-between">
+                    <div class="text-xl">First time ever</div>
+                    <div class="text-4xl">🟢</div>
+                </div>
+                <div onclick="answerQuiz(1, 'some')" class="quiz-option cursor-pointer mb-4 p-6 border border-zinc-700 hover:border-red-600 rounded-2xl flex items-center justify-between">
+                    <div class="text-xl">A few 5K mud runs or one Spartan Sprint</div>
+                    <div class="text-4xl">🟠</div>
+                </div>
+                <div onclick="answerQuiz(1, 'experienced')" class="quiz-option cursor-pointer p-6 border border-zinc-700 hover:border-red-600 rounded-2xl flex items-center justify-between">
+                    <div class="text-xl">Multiple races completed</div>
+                    <div class="text-4xl">🔴</div>
+                </div>
+            </div>
+            
+            <div id="question-2" class="quiz-step hidden">
+                <div class="text-red-500 text-sm mb-3 font-bold">QUESTION 2 OF 4</div>
+                <p class="text-3xl font-medium mb-8">How far are you comfortable running right now?</p>
+                <div onclick="answerQuiz(2, 'short')" class="quiz-option cursor-pointer mb-4 p-6 border border-zinc-700 hover:border-red-600 rounded-2xl flex items-center justify-between">
+                    <div class="text-xl">Up to 5K</div>
+                </div>
+                <div onclick="answerQuiz(2, 'medium')" class="quiz-option cursor-pointer mb-4 p-6 border border-zinc-700 hover:border-red-600 rounded-2xl flex items-center justify-between">
+                    <div class="text-xl">5K–10K regularly</div>
+                </div>
+                <div onclick="answerQuiz(2, 'long')" class="quiz-option cursor-pointer p-6 border border-zinc-700 hover:border-red-600 rounded-2xl flex items-center justify-between">
+                    <div class="text-xl">Half-marathon or more</div>
+                </div>
+            </div>
+            
+            <div id="question-3" class="quiz-step hidden">
+                <div class="text-red-500 text-sm mb-3 font-bold">QUESTION 3 OF 4</div>
+                <p class="text-3xl font-medium mb-8">How much time do you want to spend on course?</p>
+                <div onclick="answerQuiz(3, 'quick')" class="quiz-option cursor-pointer mb-4 p-6 border border-zinc-700 hover:border-red-600 rounded-2xl flex items-center justify-between">
+                    <div class="text-xl">Under 2 hours</div>
+                </div>
+                <div onclick="answerQuiz(3, 'mediumtime')" class="quiz-option cursor-pointer mb-4 p-6 border border-zinc-700 hover:border-red-600 rounded-2xl flex items-center justify-between">
+                    <div class="text-xl">2–5 hours</div>
+                </div>
+                <div onclick="answerQuiz(3, 'longtime')" class="quiz-option cursor-pointer p-6 border border-zinc-700 hover:border-red-600 rounded-2xl flex items-center justify-between">
+                    <div class="text-xl">All-day sufferfest</div>
+                </div>
+            </div>
+            
+            <div id="question-4" class="quiz-step hidden">
+                <div class="text-red-500 text-sm mb-3 font-bold">QUESTION 4 OF 4</div>
+                <p class="text-3xl font-medium mb-8">What’s your biggest motivation?</p>
+                <div onclick="answerQuiz(4, 'fun')" class="quiz-option cursor-pointer mb-4 p-6 border border-zinc-700 hover:border-red-600 rounded-2xl flex items-center justify-between">
+                    <div class="text-xl">Just have fun and get muddy</div>
+                </div>
+                <div onclick="answerQuiz(4, 'challenge')" class="quiz-option cursor-pointer mb-4 p-6 border border-zinc-700 hover:border-red-600 rounded-2xl flex items-center justify-between">
+                    <div class="text-xl">Push my limits</div>
+                </div>
+                <div onclick="answerQuiz(4, 'epic')" class="quiz-option cursor-pointer p-6 border border-zinc-700 hover:border-red-600 rounded-2xl flex items-center justify-between">
+                    <div class="text-xl">Legendary achievement</div>
+                </div>
+            </div>
+            
+            <!-- Result -->
+            <div id="quiz-result" class="hidden">
+                <div class="text-center py-12">
+                    <div id="result-icon" class="text-8xl mx-auto mb-6"></div>
+                    <h3 id="result-title" class="title-font text-5xl mb-3"></h3>
+                    <p id="result-subtitle" class="text-xl text-zinc-400 mb-8"></p>
+                    <button onclick="restartQuiz()" 
+                            class="px-10 py-4 bg-white text-black font-bold text-lg rounded-2xl">TRY AGAIN</button>
+                    <button onclick="window.location.reload()" 
+                            class="mt-4 block mx-auto text-red-500 text-sm">Or start over completely</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-black py-12 border-t border-zinc-800">
+        <div class="max-w-7xl mx-auto px-6 text-center text-xs text-zinc-500">
+            <p>This is a fully functional single-file comparison website built just for you.</p>
+            <p class="mt-2">All distances, obstacle counts, and details are based on official Spartan Race 2026 standards.</p>
+            <p class="mt-8">Made with 🔥 by Grok • Copy, save as <strong>spartan-comparator.html</strong>, and open in any browser.</p>
+            <p class="mt-6 text-red-600">Aroo! 🪖</p>
+        </div>
+    </footer>
+
+    <script>
+        // Tailwind script already loaded
+        function initializeTailwind() {
+            return {
+                config(userConfig = {}) {
+                    return {
+                        configUser: userConfig,
+                        defaultTheme: {
+                            extend: {},
+                        },
+                    }
+                },
+                theme(userConfig = {}) {
+                    return {
+                        ...this.defaultTheme,
+                        ...this.config(userConfig).theme,
+                    }
+                },
+            }
+        }
+        
+        // Initialize Tailwind
+        document.addEventListener('DOMContentLoaded', () => {
+            return initializeTailwind().theme()
+        })
+        
+        // Mobile menu
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu')
+            menu.classList.toggle('hidden')
+        }
+        
+        // Quiz logic
+        let answers = {}
+        
+        function answerQuiz(question, choice) {
+            answers[`q${question}`] = choice
+            
+            // Hide current question
+            document.getElementById(`question-${question}`).classList.add('hidden')
+            
+            if (question < 4) {
+                // Show next
+                document.getElementById(`question-${question + 1}`).classList.remove('hidden')
+            } else {
+                // Show result
+                showQuizResult()
+            }
+        }
+        
+        function showQuizResult() {
+            const resultDiv = document.getElementById('quiz-result')
+            const iconEl = document.getElementById('result-icon')
+            const titleEl = document.getElementById('result-title')
+            const subtitleEl = document.getElementById('result-subtitle')
+            
+            resultDiv.classList.remove('hidden')
+            
+            // Simple recommendation logic based on answers
+            const beginner = answers.q1 === 'beginner' || answers.q2 === 'short'
+            const timePreference = answers.q3
+            const motivation = answers.q4
+            
+            if (beginner || timePreference === 'quick') {
+                iconEl.textContent = '🏃‍♂️'
+                titleEl.textContent = 'SPRINT'
+                titleEl.className = 'title-font text-5xl mb-3 text-red-500'
+                subtitleEl.innerHTML = 'You’re ready for your first Spartan adventure!<br>5K • 20 obstacles • Pure fun'
+            } else if (answers.q1 === 'some' || timePreference === 'mediumtime') {
+                iconEl.textContent = '🔥'
+                titleEl.textContent = 'SUPER'
+                titleEl.className = 'title-font text-5xl mb-3 text-orange-500'
+                subtitleEl.innerHTML = 'The sweet spot for most racers.<br>10K • 25 obstacles • Real challenge'
+            } else if (motivation === 'challenge' || answers.q2 === 'long') {
+                iconEl.textContent = '🦍'
+                titleEl.textContent = 'BEAST'
+                titleEl.className = 'title-font text-5xl mb-3 text-amber-500'
+                subtitleEl.innerHTML = 'You were born for this.<br>21K • 30 obstacles • Trifecta territory'
+            } else {
+                iconEl.textContent = '🏔️'
+                titleEl.textContent = 'ULTRA'
+                titleEl.className = 'title-font text-5xl mb-3 text-yellow-500'
+                subtitleEl.innerHTML = 'You’re not here to play.<br>50K • 60 obstacles • Legend status'
+            }
+        }
+        
+        function restartQuiz() {
+            answers = {}
+            document.getElementById('quiz-result').classList.add('hidden')
+            // Reset to first question
+            document.querySelectorAll('.quiz-step').forEach(el => el.classList.add('hidden'))
+            document.getElementById('question-1').classList.remove('hidden')
+        }
+        
+        console.log('%c✅ Spartan Race Comparator website ready! Copy this entire file and open it in your browser.', 'color:#ff3d00; font-family:monospace; font-size:13px')
+    </script>
+</body>
+</html>
